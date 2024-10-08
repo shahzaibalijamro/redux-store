@@ -5,8 +5,8 @@ import { addCartItem } from '../config/redux/reducers/cartSlice';
 import { addProducts } from '../config/redux/reducers/productSlice';
 
 const Home = () => {
-  const selector = useSelector(state => state.cart.myCart);
-  const selector2 = useSelector(state => state.products.products);
+  const cartItems = useSelector(state => state.cart.myCart);
+  const allProducts = useSelector(state => state.products.products);
   const dispatch = useDispatch();
   useEffect(() => {
     async function getProducts() {
@@ -16,19 +16,24 @@ const Home = () => {
         returnedProducts,
       }))
     }
-    if (selector2.length === 0) {
+    if (allProducts.length === 0) {
       getProducts()
     }
   }, [])
   const addProductToCart = (item) => {
     console.log(item);
+    dispatch(addCartItem(
+      {
+        item,
+      }
+    ))
   }
   return (
     <>
       <div className='my-container'>
         <h1 className='font-semibold text-3xl mt-8 mb-12 text-black text-center'>All Products</h1>
         <div className='flex justify-center items-center gap-8 flex-wrap'>
-          {selector2.map((item, index) => {
+          {allProducts.length > 0 ? allProducts.map((item, index) => {
             return <div key={item.id} className="card card-compact bg-base-100 w-72 shadow-xl">
               <div style={{
                 borderTopLeftRadius: '18px',
@@ -46,7 +51,9 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          })}
+          }) : <div className='flex justify-center h-[50vh] items-center'>
+          <span className="loading loading-spinner loading-lg"></span>
+          </div>}
         </div>
       </div>
     </>
