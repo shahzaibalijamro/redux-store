@@ -20,13 +20,19 @@ const Home = () => {
       getProducts()
     }
   }, [])
-  const addProductToCart = (item) => {
+  const addProductToCart = (i) => {
+    const item = { ...i};
+    item.quantity = 1;
+    if (item.quantity = 1) {
+      dispatch(addCartItem(
+        {
+          item,
+        }
+      ))
+    }else{
+      item.quantity += 1;
+    }
     console.log(item);
-    dispatch(addCartItem(
-      {
-        item,
-      }
-    ))
   }
   return (
     <>
