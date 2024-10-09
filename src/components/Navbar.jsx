@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+    const currentPage = useLocation().pathname;
+    console.log(currentPage);
     const cartItems = useSelector(state => state.cart.myCart);
     let total = 0;
     if (cartItems.length > 0) {
@@ -14,7 +16,9 @@ const Navbar = () => {
         <div>
             <div className="navbar bg-base-100 dark:bg-gray-900 text-gray-100">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                <Link to={'/'}>
+                    <span className="btn btn-ghost text-xl">Redux Store</span>
+                </Link>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">
@@ -43,11 +47,11 @@ const Navbar = () => {
                                     {cartItems.length === 1 ? `${cartItems.length} Item` : `${cartItems.length} Items`}
                                 </span>
                                 <span className="text-info">Subtotal: ${total}</span>
-                                <div className="card-actions">
+                                {currentPage === '/' ? <div className="card-actions">
                                     <Link to={'cart'}>
                                     <button className="btn btn-primary btn-block">View cart</button>
                                     </Link>
-                                </div>
+                                </div> : null}
                             </div>
                         </div>
                     </div>
