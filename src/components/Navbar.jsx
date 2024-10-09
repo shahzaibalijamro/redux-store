@@ -1,12 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const cartItems = useSelector(state => state.cart.myCart);
     let total = 0;
     if (cartItems.length > 0) {
         cartItems.map((item,index) => {
-            total += item.price
+            total += item.price*item.quantity
         })
     }
     return (
@@ -38,10 +39,14 @@ const Navbar = () => {
                             tabIndex={0}
                             className="card dark:bg-gray-900 text-gray-100 card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow">
                             <div className="card-body">
-                                <span className="text-lg font-bold">{cartItems.length} Items</span>
+                                <span className="text-lg font-bold">
+                                    {cartItems.length === 1 ? `${cartItems.length} Item` : `${cartItems.length} Items`}
+                                </span>
                                 <span className="text-info">Subtotal: ${total}</span>
                                 <div className="card-actions">
+                                    <Link to={'cart'}>
                                     <button className="btn btn-primary btn-block">View cart</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

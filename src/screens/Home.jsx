@@ -5,7 +5,6 @@ import { addCartItem, increaseQuantity } from '../config/redux/reducers/cartSlic
 import { addProducts } from '../config/redux/reducers/productSlice';
 
 const Home = () => {
-  const [currentItem, setCurrentItem] = useState(true)
   const cartItems = useSelector(state => state.cart.myCart);
   console.log(cartItems);
   const allProducts = useSelector(state => state.products.products);
