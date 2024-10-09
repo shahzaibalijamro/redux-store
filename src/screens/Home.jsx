@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCartItem } from '../config/redux/reducers/cartSlice';
+import { addCartItem, increaseQuantity } from '../config/redux/reducers/cartSlice';
 import { addProducts } from '../config/redux/reducers/productSlice';
 
 const Home = () => {
+  const [currentItem, setCurrentItem] = useState(true)
   const cartItems = useSelector(state => state.cart.myCart);
+  console.log(cartItems);
   const allProducts = useSelector(state => state.products.products);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,19 +22,20 @@ const Home = () => {
       getProducts()
     }
   }, [])
-  const addProductToCart = (i) => {
-    const item = { ...i};
-    item.quantity = 1;
-    if (item.quantity = 1) {
-      dispatch(addCartItem(
-        {
-          item,
+  const addProductToCart = (item) => {
+    const existingCartItem = cartItems.find(cartItem => cartItem.title === item.title);
+    if (existingCartItem) {
+      dispatch(increaseQuantity({
+        id : existingCartItem.id,
+      }));
+    } else {
+      dispatch(addCartItem({
+        item: {
+          ...item,
+          quantity: 1
         }
-      ))
-    }else{
-      item.quantity += 1;
+      }));
     }
-    console.log(item);
   }
   return (
     <>
@@ -58,7 +61,7 @@ const Home = () => {
               </div>
             </div>
           }) : <div className='flex justify-center h-[50vh] items-center'>
-          <span className="loading loading-spinner loading-lg"></span>
+            <span className="loading loading-spinner loading-lg"></span>
           </div>}
         </div>
       </div>
