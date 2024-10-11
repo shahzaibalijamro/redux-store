@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-.my-container{
+.my-container {
     max-width: 1300px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+.my-container-2 {
+    max-width: 1400px !important;
     margin: 0 auto !important;
     padding: 0 20px !important;
 }
@@ -35,6 +41,38 @@
 }
 
 .Btn:hover {
+    background-color: #ffb700;
+    /* border: 1px solid black; */
+    transform: scale(1.02);
+}
+
+.Btn2 {
+    background-color: #ffc83d;
+    color: #414141;
+    display: inline-flex;
+    height: 2.6rem;
+    min-height: 2.6rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    user-select: none;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--rounded-btn, 0.5rem);
+    border-color: transparent;
+    border-color: oklch(var(--btn-color, var(--b2)) / var(--tw-border-opacity));
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1em;
+    gap: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.Btn2:hover {
     background-color: #ffb700;
     /* border: 1px solid black; */
     transform: scale(1.02);
