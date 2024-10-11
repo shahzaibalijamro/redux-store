@@ -42,7 +42,6 @@
 
 .Btn:hover {
     background-color: #ffb700;
-    /* border: 1px solid black; */
     transform: scale(1.02);
 }
 
@@ -74,6 +73,210 @@
 
 .Btn2:hover {
     background-color: #ffb700;
-    /* border: 1px solid black; */
     transform: scale(1.02);
+}
+
+#snackbar {
+    visibility: hidden;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    right: 20px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+#snackbar.show {
+    visibility: visible;
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    animation: fadeout 0.5s 2.5s forwards;
+}
+#snackbar.hide {
+    visibility: hidden;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    animation: fadeout 0.5s 2.5s forwards;
+}
+
+@keyframes fadein {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100%); }
+}
+
+.snackCard {
+    width: 400px;
+    height: auto;
+    background-color: #f9f9f9 !important;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.snackCard-wrapper {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+}
+
+.snackCard-icon {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.snackCard-icon .icon-cart-box {
+    background-color: #e0f2f1;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+    justify-content: center;
+}
+
+.snackCard-content {
+    width: 80%;
+}
+
+.snackCard-title-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.snackCard-title {
+    font-size: 1em;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-action {
+    width: 5%;
+    text-align: right;
+    padding: 0 30px;
+}
+
+.card-action svg {
+    cursor: pointer;
+    fill: rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease-in-out;
+}
+
+.card-action svg:hover {
+    fill: rgba(0, 0, 0, 0.6);
+}
+
+.product-name {
+    font-size: 0.8em;
+    color: #757575;
+    padding: 10px 0 0 10px;
+}
+
+.product-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.product-price {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #333;
+    padding: 0 0 10px 10px;
+}
+
+.btn-view-cart {
+    font-size: 0.7em;
+    font-weight: 600;
+    padding: 5px 10px;
+    margin: 5px 10px 20px;
+    border-radius: 15px;
+    background-color: #ffc83d;
+    color: #414141;
+    box-shadow: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+}
+
+.btn-view-cart:hover,
+.btn-view-cart:active,
+.btn-view-cart:focus {
+    background-color: #ffb700;
+    color: #0c0c0c;
+}
+
+@media (max-width: 800px) {
+    .snackCard {
+        width: 300px;
+        padding: 20px;
+    }
+
+    .snackCard-icon {
+        width: 25%;
+    }
+
+    .snackCard-content {
+        width: 75%;
+    }
+
+    .snackCard-title {
+        font-size: 0.9em;
+    }
+
+    .product-price {
+        font-size: 0.85em;
+    }
+
+    .btn-view-cart {
+        font-size: 0.65em;
+    }
+}
+
+@media (max-width: 500px) {
+    #snackbar {
+        top: 10px;
+        right: 10px;
+    }
+
+    .snackCard {
+        width: 250px;
+        padding: 15px;
+    }
+
+    .snackCard-icon {
+        width: 25%;
+    }
+
+    .snackCard-content {
+        width: 75%;
+    }
+
+    .snackCard-title {
+        font-size: 0.8em;
+    }
+
+    .product-price {
+        font-size: 0.8em;
+    }
+
+    .snackCard-title-wrapper {
+        padding: 0 0 0 6px;
+    }
+
+    .btn-view-cart {
+        font-size: 0.6em;
+        padding: 4px 8px;
+    }
 }

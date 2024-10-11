@@ -46,7 +46,7 @@ const Navbar = () => {
                                 <span className="text-lg font-bold">
                                     {cartItems.length === 1 ? `${cartItems.length} Item` : `${cartItems.length} Items`}
                                 </span>
-                                <span className="text-info">Subtotal: ${total}</span>
+                                <span className="text-info">Subtotal: ${total.toFixed(2)}</span>
                                 {currentPage === '/' ? <div className="card-actions">
                                     <Link to={'cart'}>
                                     <button className="btn btn-primary btn-block">View cart</button>

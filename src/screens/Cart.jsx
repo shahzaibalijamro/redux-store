@@ -4,7 +4,7 @@ import { GrAdd } from 'react-icons/gr';
 import { IoIosAdd } from 'react-icons/io';
 import { RiSubtractFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCartItem, increaseQuantity } from '../config/redux/reducers/cartSlice';
+import { addCartItem, decreaseQuantity, increaseQuantity, removeCartItem } from '../config/redux/reducers/cartSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -16,20 +16,30 @@ const Cart = () => {
       total += item.price * item.quantity
     })
   }
-  const addProductToCart = (item) => {
+  const increaseQuantityOfItem = (item) => {
     const existingCartItem = cartItems.find(cartItem => cartItem.title === item.title);
     if (existingCartItem) {
       dispatch(increaseQuantity({
         id: existingCartItem.id,
       }));
-    } else {
-      dispatch(addCartItem({
-        item: {
-          ...item,
-          quantity: 1
-        }
-      }));
     }
+  }
+  const decreaseQuantityOfItem = (item) => {
+    if (item.quantity > 0) {
+      const existingCartItem = cartItems.find(cartItem => cartItem.title === item.title);
+      if (existingCartItem) {
+        dispatch(decreaseQuantity({
+          id: existingCartItem.id,
+        }));
+      }
+    }
+  }
+  const deleteItem = (item) => {
+    // const existingCartItem = cartItems.find(cartItem => cartItem.title === item.title);
+    // console.log(existingCartItem);
+    dispatch(removeCartItem({
+      id: item.id
+    }))
   }
   return (
     <div>
@@ -51,7 +61,7 @@ const Cart = () => {
                   <p>Price : <span className='font-semibold'> {item.price} $</span></p>
                   <div className='flex items-center'>Quantity :
                     <div className='flex items-center'>
-                      <GrAdd onClick={() => addProductToCart(item)} style={{
+                      <GrAdd onClick={() => increaseQuantityOfItem(item)} style={{
                         marginLeft: '10px',
                         marginRight: '10px',
                         fontSize: '14px',
@@ -60,7 +70,7 @@ const Cart = () => {
                         boxSizing: 'content-box'
                       }} />
                       {item.quantity}
-                      <RiSubtractFill style={{
+                      <RiSubtractFill  onClick={() => decreaseQuantityOfItem(item)} style={{
                         marginLeft: '10px',
                         marginRight: '10px',
                         fontSize: '14px',
@@ -70,7 +80,7 @@ const Cart = () => {
                       }} />
                     </div>
                     <div className='ms-1'>
-                      <FaTrashAlt style={{
+                      <FaTrashAlt onClick={()=> deleteItem(item)} style={{
                         color: 'red',
                         cursor: 'pointer'
                       }} />
@@ -96,7 +106,7 @@ const Cart = () => {
               <textarea className="textarea w-[100%] max-w-[320px] textarea-bordered" placeholder="Address"></textarea>
             </div>
             <h1 className='text-xl'>Total Items : {cartItems.length === 1 ? `${cartItems.length} Item` : `${cartItems.length} Items`}</h1>
-            <h1 className='text-xl mt-5'>Total Price : {total} $</h1>
+            <h1 className='text-xl mt-5'>Total Price : {total.toFixed(2)} $</h1>
             <button className="Btn2 mt-5 text-white btn-primary p-0">
               Place Order
             </button>

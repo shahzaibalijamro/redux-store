@@ -17,12 +17,23 @@ const cartSlice = createSlice(
                     }
                 })
             },
+            decreaseQuantity : (state,action) => {
+                state.myCart.map((item,index) => {
+                    if (item.id === action.payload.id) {
+                        item.quantity = item.quantity-1
+                    }
+                })
+            },
             removeCartItem: (state, action) => {
-                state.myCart.splice(action.payload.index, 1)
+                for (let i = 0; i < state.myCart.length; i++) {
+                    if (state.myCart[i].id === action.payload.id) {
+                        state.myCart.splice(i, 1)
+                    }
+                }
             },
         }
     }
 )
 
-export const { addCartItem, removeCartItem,increaseQuantity } = cartSlice.actions
+export const { addCartItem, removeCartItem,increaseQuantity,decreaseQuantity } = cartSlice.actions
 export default cartSlice.reducer
