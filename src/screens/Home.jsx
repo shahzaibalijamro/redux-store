@@ -70,7 +70,7 @@ const Home = () => {
               <div className="snackCard-content">
                 <div className="snackCard-title-wrapper">
                   <span className="snackCard-title">Added to cart!</span>
-                  <span onClick={hideSnackbar} className="snackCard-action">
+                  <span onClick={hideSnackbar} className="snackCard-action cursor-pointer">
                     <svg
                       viewBox="0 0 384 512"
                       width="15"
