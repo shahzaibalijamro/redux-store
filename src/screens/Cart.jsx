@@ -5,6 +5,7 @@ import { IoIosAdd } from 'react-icons/io';
 import { RiSubtractFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem, decreaseQuantity, increaseQuantity, removeCartItem } from '../config/redux/reducers/cartSlice';
+import { useEffect } from 'react';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Cart = () => {
       var snackbar = document.getElementById("snackbar");
       snackbar.className = "show";
       setTimeout(function () { snackbar.className = snackbar.className.replace("show", ""); }, 4000);
-    }else{
+    } else {
       alert('You have an empty cart!')
     }
   }
@@ -54,10 +55,12 @@ const Cart = () => {
     var snackbar = document.getElementById("snackbar");
     snackbar.className = "";
   }
+  let totalProducts = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  console.log(totalProducts);
   return (
     <div>
       <div className='my-container-2'>
-      <div id="snackbar">
+        <div id="snackbar">
           <div className="snackCard">
             <div className="snackCard-wrapper">
               <div className="snackCard-icon">
@@ -105,7 +108,10 @@ const Cart = () => {
                   borderBottomLeftRadius: '18px',
                   borderTopLeftRadius: '18px'
                 }} className='flex justify-center bg-[#e9e9e9] items-center'>
-                  <img src={item.thumbnail} alt={item.title} />
+                  <img style={{
+                    width: '150px',
+                    maxWidth: '150px'
+                  }} src={item.thumbnail} alt={item.title} />
                 </div>
                 <div className="card-body">
                   <h2 className="card-title text-left text-ellipsis line-clamp-1">{item.title}</h2>
@@ -122,7 +128,7 @@ const Cart = () => {
                         boxSizing: 'content-box'
                       }} />
                       {item.quantity}
-                      <RiSubtractFill  onClick={() => decreaseQuantityOfItem(item)} style={{
+                      <RiSubtractFill onClick={() => decreaseQuantityOfItem(item)} style={{
                         marginLeft: '10px',
                         marginRight: '10px',
                         fontSize: '14px',
@@ -132,7 +138,7 @@ const Cart = () => {
                       }} />
                     </div>
                     <div className='ms-1'>
-                      <FaTrashAlt onClick={()=> deleteItem(item)} style={{
+                      <FaTrashAlt onClick={() => deleteItem(item)} style={{
                         color: 'red',
                         cursor: 'pointer'
                       }} />
@@ -151,19 +157,20 @@ const Cart = () => {
             <h1 className='text-xl'>Delievery Details</h1>
             <div className='my-6'>
               <div>
-              <h1 className=' mb-2'>Name</h1>
-              <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" />
+                <h1 className=' mb-2'>Name</h1>
+                <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" />
               </div>
               <div>
-              <h1 className='mt-5 mb-2'>Mobile No</h1>
-              <input type="text" placeholder="Mobile no" className="input input-bordered w-full max-w-xs" />
+                <h1 className='mt-5 mb-2'>Mobile No</h1>
+                <input type="text" placeholder="Mobile no" className="input input-bordered w-full max-w-xs" />
               </div>
               <div>
-              <h1 className='mt-5 mb-2'>Address</h1>
-              <textarea className="textarea w-[100%] max-w-[320px] textarea-bordered" placeholder="Address"></textarea>
+                <h1 className='mt-5 mb-2'>Address</h1>
+                <textarea className="textarea w-[100%] max-w-[320px] textarea-bordered" placeholder="Address"></textarea>
               </div>
             </div>
-            <h1 className='text-xl'>Total Items : {cartItems.length === 1 ? `${cartItems.length} Item` : `${cartItems.length} Items`}</h1>
+            <h1 className='text-xl'>Total Items : {totalProducts}</h1>
+            <h1 className='text-xl'>Unique Products : {cartItems.length === 1 ? `${cartItems.length}` : `${cartItems.length} Items`}</h1>
             <h1 className='text-xl mt-5'>Total Price : {total.toFixed(2)} $</h1>
             <button onClick={showSnackbar} className="Btn2 mt-5 text-white btn-primary p-0">
               Place Order

@@ -228,8 +228,8 @@
         flex-direction: row !important;
     }
     #imageBox{
-        border-top-left-radius: 0px !important;
-        border-top-right-radius: 0px !important;
+        border-top-left-radius: 18px !important;
+        border-top-right-radius: 18px !important;
         border-bottom-left-radius: 0px !important;
     
     }
@@ -240,7 +240,7 @@
         width: 18rem !important;
     }
     .card-body{
-        padding: 1.3rem !important;
+        padding: 1.2rem !important;
     }
     #rightSide{
         width: 100% !important;
